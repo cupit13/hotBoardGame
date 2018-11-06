@@ -287,9 +287,10 @@ public class board : MonoBehaviour {
                 {
                     quest nuTile = new quest();
                     int realRan = ran + (tiles * age);
-                    nuTile.name = realRan.ToString();//specChart[realRan];
-                    nuTile.ind = realRan;
-                    nuTile.age = age;
+                    nuTile = deckLib_script.Instance.curLib.deck[realRan-1];
+                    //nuTile.name = realRan.ToString();//specChart[realRan];
+                    //nuTile.ind = realRan;
+                    //nuTile.age = age;
                     tempQuestDeck.Add(nuTile);
                     blackList.Add(ran);
                 }
@@ -302,14 +303,14 @@ public class board : MonoBehaviour {
 
         for (int i = 0; i < limit; i++)
         {
-            int ran = Random.Range(1, (tiles + 1) * 2);
+            int ran = Random.Range(0, tempQuestDeck.Count);
             if (blackList2.Contains(ran))
             {
                 i--;
             }
             else
             {
-                qDeck.deck.Add(tempQuestDeck[i]);
+                qDeck.deck.Add(tempQuestDeck[ran]);
                 blackList2.Add(ran);
             }
         }
@@ -360,11 +361,18 @@ public class board : MonoBehaviour {
         {
             qAvail = 6;
         }
+
+        List<quest> tempSpec = new List<quest>();
+
         for (int s = 0; s < qAvail; s++)
         {
-            quest tempSpec = qDeck.deck[s];
+            tempSpec.Add(qDeck.deck[s]);
             qDeck.aDeck.Add(qDeck.deck[s]);
-            qDeck.deck.Remove(tempSpec);
+        }
+
+        for (int s = 0; s < qAvail; s++)
+        {
+            qDeck.deck.Remove(tempSpec[s]);
         }
 
         quest offering = new quest();
