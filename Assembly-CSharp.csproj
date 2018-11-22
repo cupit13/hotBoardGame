@@ -64,6 +64,7 @@
     <Compile Include="Assets\classes\board.cs" />
     <Compile Include="Assets\classes\buildingTile.cs" />
     <Compile Include="Assets\classes\dashboard.cs" />
+    <Compile Include="Assets\classes\disposer.cs" />
     <Compile Include="Assets\classes\plot.cs" />
     <Compile Include="Assets\classes\quest.cs" />
     <Compile Include="Assets\classes\resource.cs" />

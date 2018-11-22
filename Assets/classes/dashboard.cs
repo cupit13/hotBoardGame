@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [System.Serializable]
 public class dashboard : System.Object {
@@ -71,6 +72,24 @@ public class dashboard : System.Object {
         starterPlot.ind = plotNum;
         updatePlot(1, starterPlot, 2);
     }
+
+    public int ResourceCount
+    {
+        get
+        {
+            return resc.Count;
+        }
+    }
+
+    
+    //public void Add(List<resource> resourceList)
+    //{
+    //    from r in resourceList select r f
+    //    resc.Add()
+
+
+  
+    //}
 
 	// Update is called once per frame
 	void Update () {

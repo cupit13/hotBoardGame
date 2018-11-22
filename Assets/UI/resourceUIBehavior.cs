@@ -221,6 +221,7 @@ public class resourceUIBehavior : MonoBehaviour {
         }
         else
         {
+            List<int> indexesToIgnore = new List<int>();
             List<resource> forRemoval = new List<resource>();
             List<resource> toKeep = new List<resource>();
 
@@ -229,26 +230,38 @@ public class resourceUIBehavior : MonoBehaviour {
                 forRemoval.Add(tempReturn[n]);
             }
 
-            for (int r = 0; r < thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc.Count; r++)
+            // create a copy of resources of what the current player has
+            for (int r = 0; r < thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].ResourceCount; r++)
             {
                 toKeep.Add(thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc[r]);
             }
 
+            // loop through all of the items to be returned
             for (int n = 0; n < tempReturn.Count; n++)
             {
                 print("player" + thisBoard.curPlayer.ToString() + " is returning " + tempReturn[n].name);
                 thisBoard.rStore.rescList[tempReturn[n].rescInd].boardCount += 1;
-                for (int r = 0; r < thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc.Count; r++)
+
+                // loop through all of the resources of the current player
+                for (int r = 0; r < thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].ResourceCount; r++)
                 {
-                    if (thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc[r].rescInd == tempReturn[n].rescInd)
+                    if (!indexesToIgnore.Contains(r))
                     {
-                        forRemoval.Remove(tempReturn[n]);
-                        toKeep.Remove(thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc[r]);
-                        r = thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc.Count;
-                    }
+                        // if the resource type e.g. ore or wood matches then we are removing it
+                        if (thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc[r].rescInd == tempReturn[n].rescInd)
+                        {
+                            forRemoval.Remove(tempReturn[n]);
+                            toKeep.Remove(thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc[r]);
+                            indexesToIgnore.Add(r);
+                            break;
+                            //r = thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc.Count;
+                        }
+                    }                    
                 }
             }
             thisBoard.dashboards.playerBoards[thisBoard.curPlayer - 1].resc = toKeep;
+
+
         }
         checkOverFlow();
 

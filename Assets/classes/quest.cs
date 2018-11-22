@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 [System.Serializable]
 public class quest : System.Object {
     public string name;
     public int ind;
     public int age;
+
 
     public int daggers;
     public int fireball;
@@ -14,6 +17,7 @@ public class quest : System.Object {
     public int armor;
     public int sword;
 
+ 
     public List<craftItem> crafts = new List<craftItem>();
 }
 

@@ -8,6 +8,6 @@ public class treasure : System.Object {
     public int ind;
     public int tradeIn;
     public int type;//(none, relic,artifact,scroll)
-
+    public int col;//(blue,red,yellow)
 
 }
