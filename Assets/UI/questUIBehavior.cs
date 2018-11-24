@@ -8,6 +8,7 @@ public class questUIBehavior : MonoBehaviour {
     public board thisBoard;
     public GameObject questPrefab;
     public List<GameObject> questPrefabs = new List<GameObject>();
+    public List<Text> rescTexts = new List<Text>();
 
     public void displayCard(quest QClass, int num)
     {
@@ -108,6 +109,8 @@ public class questUIBehavior : MonoBehaviour {
             displayCard(thisBoard.qDeck.aDeck[n], n);
             questPrefabs[n].GetComponent<RectTransform>().localPosition = new Vector3(xpos[n], 80, 0);
         }
+
+
     }
 
     private void Update()
