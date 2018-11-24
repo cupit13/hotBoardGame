@@ -39,6 +39,8 @@ public class resourceUIBehavior : MonoBehaviour {
     bool nextReturn;
     public bool[] retAllow;
 
+    public List<Sprite> rescPNGs = new List<Sprite>();
+
     void syncAllow()
     {
         for(int n =0;n<allow.Length;n++)
@@ -75,7 +77,8 @@ public class resourceUIBehavior : MonoBehaviour {
     void setColor(int optInd, int rescInd)
     {
         Image imageObj = resTexts[rescInd].gameObject.transform.parent.gameObject.GetComponent<Button>().targetGraphic.GetComponent<Image>();
-        optObjs[optInd].GetComponent<Image>().color = imageObj.color;
+        //optObjs[optInd].GetComponent<Image>().color = imageObj.color;
+        optObjs[optInd].GetComponent<Image>().sprite = rescPNGs[rescInd];
     }
 
     public void ClickThis(int resInd)
