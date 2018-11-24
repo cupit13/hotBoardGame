@@ -348,9 +348,10 @@ public class board : MonoBehaviour {
             {
                 quest nuTile = new quest();
                 int realRan = ran + (tiles);
-                nuTile.name = realRan.ToString();//specChart[realRan];
-                nuTile.ind = realRan;
-                nuTile.age = age;
+                nuTile = deckLib_script.Instance.curLib.deck[realRan - 1];
+                //nuTile.name = realRan.ToString();//specChart[realRan];
+                //nuTile.ind = realRan;
+                //nuTile.age = age;
                 qDeck.deck.Add(nuTile);
                 blackList.Add(ran);
             }

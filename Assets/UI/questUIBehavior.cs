@@ -7,11 +7,12 @@ public class questUIBehavior : MonoBehaviour {
 
     public board thisBoard;
     public GameObject questPrefab;
+    public List<GameObject> questPrefabs = new List<GameObject>();
 
-    public void displayCard(quest QClass)
+    public void displayCard(quest QClass, int num)
     {
-        resetCard();
-        questIdentifier thisQuest = questPrefab.GetComponent<questIdentifier>();
+        resetCard(num);
+        questIdentifier thisQuest = questPrefabs[num].GetComponent<questIdentifier>();
         //display title
         thisQuest.title.text = QClass.name;
 
@@ -77,9 +78,9 @@ public class questUIBehavior : MonoBehaviour {
 
     }
 
-    public void resetCard()
+    public void resetCard(int num)
     {
-        questIdentifier thisQuest = questPrefab.GetComponent<questIdentifier>();
+        questIdentifier thisQuest = questPrefabs[num].GetComponent<questIdentifier>();
 
         thisQuest.title.text = "Title";
 
@@ -92,11 +93,28 @@ public class questUIBehavior : MonoBehaviour {
         thisQuest.craftHolders[0].GetComponent<RectTransform>().localPosition = new Vector3(0, -88, 0);
     }
 
+    public void initCraftUI()
+    {
+        for(int i = 0; i < 5; i++)
+        {
+            GameObject newQuest = GameObject.Instantiate(questPrefab);
+            newQuest.transform.SetParent(this.transform);
+            questPrefabs.Add(newQuest);
+        }
+
+        int[] xpos = new int[] { -500, -250, 0, 250, 500 };
+        for(int n = 0; n < questPrefabs.Count; n++)
+        {
+            displayCard(thisBoard.qDeck.aDeck[n], n);
+            questPrefabs[n].GetComponent<RectTransform>().localPosition = new Vector3(xpos[n], 80, 0);
+        }
+    }
+
     private void Update()
     {
         if (Input.GetButtonDown("Jump"))
         {
-            displayCard(deckLib_script.Instance.curLib.deck[0]);
+            //displayCard(deckLib_script.Instance.curLib.deck[0]);
             //thisBoard.qDeck.aDeck[0];
             //deckLib_script.Instance.curLib.deck[1]
         }
